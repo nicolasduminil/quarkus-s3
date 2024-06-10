@@ -4,8 +4,7 @@ import jakarta.enterprise.context.*;
 import jakarta.inject.*;
 import org.eclipse.microprofile.config.inject.*;
 import software.amazon.awscdk.*;
-import software.amazon.awscdk.services.lambda.Runtime;
-import software.amazon.awscdk.services.lambda.*;
+import software.amazon.awscdk.services.s3.*;
 
 @ApplicationScoped
 public class CdkApiGatewayStack extends Stack
@@ -20,15 +19,6 @@ public class CdkApiGatewayStack extends Stack
   public CdkApiGatewayStack(final App scope, @ConfigProperty(name = "cdk.stack-id", defaultValue = "QuarkusApiGatewayStack") final String stackId, final StackProps props)
   {
     super(scope, stackId, props);
-    IFunction function = Function.Builder.create(this, ID)
-      .runtime(Runtime.JAVA_21)
-      .handler(HANDLER)
-      .memorySize(RAM)
-      .timeout(Duration.seconds(TIME_OUT))
-      .functionName(FUNCTION)
-      .code(Code.fromAsset((String)this.getNode().tryGetContext("zip")))
-      .build();
-    FunctionUrl functionUrl = function.addFunctionUrl(FunctionUrlOptions.builder().authType(FunctionUrlAuthType.NONE).build());
-    CfnOutput.Builder.create(this, "FunctionURLOutput").value(functionUrl.getUrl()).build();
+    Bucket.Builder.create(this, "myBucket").build();
   }
 }
