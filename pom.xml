@@ -15,9 +15,6 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.version>3.11.0</quarkus.platform.version>
     <quarkus-amazon-services.version>2.13.1</quarkus-amazon-services.version>
-    <junit.version>5.7.1</junit.version>
-    <assertj.version>3.25.3</assertj.version>
-    <surefire.version>3.2.5</surefire.version>
     <cdk.version>2.137.0</cdk.version>
   </properties>
   <dependencyManagement>
