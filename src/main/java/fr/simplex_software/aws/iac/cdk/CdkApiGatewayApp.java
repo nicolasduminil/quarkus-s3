@@ -13,8 +13,13 @@ public class CdkApiGatewayApp implements QuarkusApplication
   App app = new App();
   @Produces
   StackProps stackProps = StackProps.builder().build();
-  @Inject
   CdkApiGatewayStack cdkApiGatewayStack;
+
+  @Inject
+  public CdkApiGatewayApp (CdkApiGatewayStack cdkApiGatewayStack)
+  {
+    this.cdkApiGatewayStack = cdkApiGatewayStack;
+  }
 
   @Override
   public int run(String... args) throws Exception
