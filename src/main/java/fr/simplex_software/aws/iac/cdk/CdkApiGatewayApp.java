@@ -9,15 +9,13 @@ import software.amazon.awscdk.*;
 @ApplicationScoped
 public class CdkApiGatewayApp implements QuarkusApplication
 {
-  @Produces
-  App app = new App();
-  @Produces
-  StackProps stackProps = StackProps.builder().build();
   CdkApiGatewayStack cdkApiGatewayStack;
+  private App app;
 
   @Inject
-  public CdkApiGatewayApp (CdkApiGatewayStack cdkApiGatewayStack)
+  public CdkApiGatewayApp (App app, CdkApiGatewayStack cdkApiGatewayStack)
   {
+    this.app = app;
     this.cdkApiGatewayStack = cdkApiGatewayStack;
   }
 
