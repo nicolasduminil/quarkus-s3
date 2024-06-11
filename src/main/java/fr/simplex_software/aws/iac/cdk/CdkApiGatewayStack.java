@@ -6,7 +6,7 @@ import org.eclipse.microprofile.config.inject.*;
 import software.amazon.awscdk.*;
 import software.amazon.awscdk.services.s3.*;
 
-@ApplicationScoped
+@Singleton
 public class CdkApiGatewayStack extends Stack
 {
   @Inject
