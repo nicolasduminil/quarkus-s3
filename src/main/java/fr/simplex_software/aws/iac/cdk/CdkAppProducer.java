@@ -7,17 +7,19 @@ import software.amazon.awscdk.App;
 import software.amazon.awscdk.StackProps;
 
 @ApplicationScoped
-public class AppProducer {
+public class CdkAppProducer
+{
+  @Produces
+  @Singleton
+  public App app()
+  {
+    return new App();
+  }
 
-    @Produces
-    @Singleton
-    App app() {
-        return new App();
-    }
-
-    @Produces
-    @Singleton
-    StackProps stackProps() {
-        return StackProps.builder().build();
-    }
+  @Produces
+  @Singleton
+  public StackProps stackProps()
+  {
+    return StackProps.builder().build();
+  }
 }

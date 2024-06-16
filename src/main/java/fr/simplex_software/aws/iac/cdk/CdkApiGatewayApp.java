@@ -2,7 +2,6 @@ package fr.simplex_software.aws.iac.cdk;
 
 import io.quarkus.runtime.*;
 import jakarta.enterprise.context.*;
-import jakarta.enterprise.inject.*;
 import jakarta.inject.*;
 import software.amazon.awscdk.*;
 

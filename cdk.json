@@ -1,5 +1,5 @@
 {
-  "app": "mvn package && java -jar target/quarkus-app/quarkus-run.jar",
+  "app": "java -jar target/quarkus-s3-runner.jar",
   "watch": {
     "include": [
       "**"
