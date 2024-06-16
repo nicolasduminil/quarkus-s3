@@ -24,6 +24,6 @@ public class HostResourceIT
   @Test
   public void testHostResource() throws IOException
   {
-    assertThat(hostResourceClient.host()).contains("");
+    assertThat(hostResourceClient.host()).contains("*** My IP address is");
   }
 }
