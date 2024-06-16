@@ -3,6 +3,8 @@ package fr.simplex_software.aws.iac.cdk;
 import jakarta.inject.*;
 import org.eclipse.microprofile.config.inject.*;
 import software.amazon.awscdk.*;
+import software.amazon.awscdk.aws_apigatewayv2_integrations.*;
+import software.amazon.awscdk.services.apigatewayv2.*;
 import software.amazon.awscdk.services.lambda.Runtime;
 import software.amazon.awscdk.services.lambda.*;
 
@@ -25,10 +27,10 @@ public class CdkApiGatewayStack extends Stack
   public CdkApiGatewayStack(final App scope, @ConfigProperty(name = "cdk.stack-id", defaultValue = "QuarkusStack") final String stackId, final StackProps props)
   {
     super(scope, stackId, props);
-    if (handler == null)
-      System.out.println (">>> Handler is null");
-    else
-      System.out.println (">>> Handlet is not null");
+  }
+
+  public void initStack()
+  {
     IFunction function = Function.Builder.create(this, id)
       .runtime(Runtime.JAVA_21)
       .handler(handler)
@@ -37,5 +39,12 @@ public class CdkApiGatewayStack extends Stack
       .functionName(lambdaFunction)
       .code(Code.fromAsset((String)this.getNode().tryGetContext("zip")))
       .build();
+    FunctionUrl functionUrl = function.addFunctionUrl(FunctionUrlOptions.builder().authType(FunctionUrlAuthType.NONE).build());
+    String url = HttpApi.Builder.create(this, "HttpApiGatewayIntegration")
+      .defaultIntegration(HttpLambdaIntegration.Builder.create("HttpApiGatewayIntegration", function).build()).build().getUrl();
+    CfnOutput.Builder.create(this, "FunctionURLOutput").value(functionUrl.getUrl()).build();
+    CfnOutput.Builder.create(this, "FunctionArnOutput").value(function.getFunctionArn()).build();
+    CfnOutput.Builder.create(this, "HttpApiGatewayUrlOutput").value(url).build();
+    CfnOutput.Builder.create(this, "HttpApiGatewayCurlOutput").value("curl -i " + url + "/s3").build();
   }
 }

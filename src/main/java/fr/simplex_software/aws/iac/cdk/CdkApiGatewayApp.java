@@ -24,6 +24,7 @@ public class CdkApiGatewayApp implements QuarkusApplication
     Tags.of(app).add("project", "API Gateway with Quarkus");
     Tags.of(app).add("environment", "development");
     Tags.of(app).add("application", "CdkApiGatewayApp");
+    cdkApiGatewayStack.initStack();
     app.synth();
     return 0;
   }
